@@ -55,3 +55,18 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+classes
+
+#Other
+.DS_Store
+Thumbs.db
+tmp
+*.tgz
+*.lock
+*.lck
