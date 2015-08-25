@@ -1,7 +1,7 @@
 # Surgeon
 
 ##What is this?
-**For the Android developers that love to split the strings files, will have to suffer when they have to add translations.** It is hard to know if there is a new string searching in each file in each translation.
+**For the Android developers that love to split the strings files, will have to suffer when they have to add translations.** It is hard to know if there is a new string searching in each file for each translation.
 
 Surgeon it is a simple script that finds all the string files, merges them and compares each translation to find the differences. Finally generates a new file with the missing translation in each language.
 
