@@ -1,15 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-__author__ = 'miguel'
+__author__ = 'Miguel Catalan Bañuls'
 import glob
 import xml.dom.minidom
 import difflib
 import os
 from xml.etree import ElementTree
 
+import config
 
-RESOURCES_DIR = 'app/src/main/res/'
-MAIN_VALUES_DIR = 'values/'
+
+RESOURCES_DIR = config.PROJECT_PATH + config.MODULE_NAME + '/src/' + config.FLAVOUR + '/res/'
 
 
 def junkemptylines(temp):
@@ -38,7 +39,7 @@ def format_xml(elem, level=0):
 
 
 def merge_string_files(path):
-    xml_files = glob.glob(path + '/strings_*')
+    xml_files = glob.glob(path + '/' + config.STRING_FILES_PREFIX + '*' + config.STRING_FILES_SUFFIX)
     xml_element_tree = None
     print("Merging files from " + path)
     for xml_file in xml_files:
@@ -105,9 +106,9 @@ if __name__ == "__main__":
         main_files.append(temp_file)
         save_file(directory + "/merge_strings.xml", ElementTree.tostring(temp_file))
         if directory is not directories[0]:
-            save_file(directory + "/diff_strings.xml",
+            save_file(directory + "/" + config.DIFF_FILE_NAME,
                       create_xml_format('\n'.join(get_differences(directories[0], directory))))
-            print "Saving changes in " + directory + "/diff_strings.xml"
+            print "Saving changes in " + directory + "/" + config.DIFF_FILE_NAME
         print "\n"
 
     for directory in directories:
