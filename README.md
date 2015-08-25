@@ -3,15 +3,19 @@
 ##What is this?
 **For the Android developers that love to split the strings files, will have to suffer when they have to add translations.** It is hard to know if there is a new string searching in each file for each translation.
 
-Surgeon it is a simple script that finds all the string files, merges them and compares each translation to find the differences. Finally generates a new file with the missing translation in each language.
+Surgeon it is a simple script that **finds all the string files, merges them and compares each translation to find the differences**. Finally generates a new file with the missing translations in each language.
 
 ##How do I use it?
-Just place the script in the proyect directory, **at the same level of the app** directory, and execute it in the terminal:
+ 
+- Edit the *config.py* file and put the name and the path of your project
+- And run the script with
 
-	python surgeon.py
+		python surgeon.py
+		
+Easy isn't it?
 	
 ##Don't be shy
-Pull requests are welcome. Lets put this newbie surgeon to the top of the wall of fame.
+Pull requests are more than welcome. I am not an expert in Python so lets put this newbie surgeon to the top of the wall of fame.
 
 ##License
 	Copyright 2015 Miguel Catalan Bañuls

@@ -1,15 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-__author__ = 'miguel'
+__author__ = 'Miguel Catalan Bañuls'
 import glob
 import xml.dom.minidom
 import difflib
 import os
 from xml.etree import ElementTree
 
+import config
 
-RESOURCES_DIR = 'app/src/main/res/'
-MAIN_VALUES_DIR = 'values/'
+
+RESOURCES_DIR = config.PROJECT_PATH + config.MODULE_NAME + '/src/' + config.FLAVOUR + '/res/'
 
 
 def junkemptylines(temp):
