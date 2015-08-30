@@ -3,7 +3,6 @@
 __author__ = 'Miguel Catalan Bañuls'
 import glob
 import xml.dom.minidom
-import difflib
 import os
 from xml.etree import ElementTree
 
@@ -13,7 +12,7 @@ import config
 RESOURCES_DIR = config.PROJECT_PATH + config.MODULE_NAME + '/src/' + config.FLAVOUR + '/res/'
 
 
-def junkemptylines(temp):
+def junk_empty_lines(temp):
     textA = []
     for text in temp:
         text = text.rstrip()
@@ -73,23 +72,30 @@ def get_all_values_dirs():
 
 
 def get_differences(file_1, file_2):
-    domA = xml.dom.minidom.parse(file_1 + "/merge_strings.xml")
-    temp = domA.toprettyxml().splitlines(1)
-    textA = junkemptylines(temp)
-    domB = xml.dom.minidom.parse(file_2 + "/merge_strings.xml")
-    temp = domB.toprettyxml().splitlines(1)
-    textB = junkemptylines(temp)
-    d = difflib.Differ()
-    all = list(d.compare(textA, textB))
-    diff = [l for l in all if l.startswith('- ') or l.startswith('+ ')]
-    print "Found ", len(diff), " differences in " + file_2
-    return diff
+    dom_a = xml.dom.minidom.parse(file_1 + "/merge_strings.xml")
+    dom_b = xml.dom.minidom.parse(file_2 + "/merge_strings.xml")
+
+    strings_a = dom_a.getElementsByTagName("string")
+    strings_b = dom_b.getElementsByTagName("string")
+
+    diff = []
+    for elementA in strings_a:
+        for elementB in strings_b:
+            if elementA.getAttribute('name') == elementB.getAttribute('name'):
+                diff.append(elementA)
+    results = set(strings_a).difference(diff)
+
+    formatted_results = []
+    for result in results:
+        formatted_results.append(result.toprettyxml())
+
+    formatted_results = junk_empty_lines(formatted_results)
+    print "Found ", len(formatted_results), " differences in " + file_2
+    return formatted_results
 
 
 def create_xml_format(content):
     content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n" + content
-    content.replace("- 	", " 	")
-    content.replace("+ 	", " 	")
     content = content + "\n</resources>"
     return content
 
@@ -104,10 +110,15 @@ if __name__ == "__main__":
     for directory in directories:
         temp_file = merge_string_files(directory)
         main_files.append(temp_file)
-        save_file(directory + "/merge_strings.xml", ElementTree.tostring(temp_file))
+        try:
+            save_file(directory + "/merge_strings.xml", ElementTree.tostring(temp_file))
+        except AttributeError:
+            print "Oops!  That was no valid number.  Try again..."
+
         if directory is not directories[0]:
             save_file(directory + "/" + config.DIFF_FILE_NAME,
                       create_xml_format('\n'.join(get_differences(directories[0], directory))))
+            # get_true_differences(directories[0], directory)
             print "Saving changes in " + directory + "/" + config.DIFF_FILE_NAME
         print "\n"
 
