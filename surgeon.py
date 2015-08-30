@@ -112,18 +112,22 @@ if __name__ == "__main__":
         main_files.append(temp_file)
         try:
             save_file(directory + "/merge_strings.xml", ElementTree.tostring(temp_file))
-        except AttributeError:
-            print "Oops!  That was no valid number.  Try again..."
 
-        if directory is not directories[0]:
-            save_file(directory + "/" + config.DIFF_FILE_NAME,
-                      create_xml_format('\n'.join(get_differences(directories[0], directory))))
-            # get_true_differences(directories[0], directory)
-            print "Saving changes in " + directory + "/" + config.DIFF_FILE_NAME
+            if directory is not directories[0]:
+                save_file(directory + "/" + config.DIFF_FILE_NAME,
+                          create_xml_format('\n'.join(get_differences(directories[0], directory))))
+                # get_true_differences(directories[0], directory)
+                print "Saving changes in " + directory + "/" + config.DIFF_FILE_NAME
+
+        except AttributeError:
+            print "Oops!  No strings files in this directory..."
         print "\n"
 
     for directory in directories:
-        remove_file(directory + "/merge_strings.xml")
+        try:
+            remove_file(directory + "/merge_strings.xml")
+        except OSError:
+            None
 
     print "-" * 60
     print("Surgeon is done ٩(◕‿◕٩)")
