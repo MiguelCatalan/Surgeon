@@ -1,11 +1,11 @@
 # Surgeon
 
-##What is this?
+## What is this?
 **For the Android developers that love to split the strings files, will have to suffer when they have to add translations.** It is hard to know if there is a new string searching in each file for each translation and mobile network.
 
 Surgeon it is a simple script that **finds all the string files, merges them and compares each translation to find the differences**. Finally generates a new file with the missing translations in each language.
 
-##How do I use it?
+## How do I use it?
  
 - Edit the *config.py* file and put the name and the path of your project and/or other extra configurations.
 - And run the script with:
@@ -14,7 +14,7 @@ Surgeon it is a simple script that **finds all the string files, merges them and
 		
 Easy isn't it?
 
-##Customizable
+## Customizable
 - Define where is your project with *PROJECT_PATH*
 - Search in an expecific module defining *MODULE_NAME* constant
 - For a particular flavour
@@ -22,10 +22,10 @@ Easy isn't it?
 - And last but no least, the result file
 - What more? DIY and PR :)
 	
-##Don't be shy
+## Don't be shy
 Pull requests are more than welcome. I am not an expert in Python so lets put this newbie surgeon to the top of the wall of fame.
 
-##License
+## License
 	Copyright 2015 Miguel Catalan Bañuls
 
 	Licensed under the Apache License, Version 2.0 (the "License");
